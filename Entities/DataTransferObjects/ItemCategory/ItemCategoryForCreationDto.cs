@@ -5,16 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.DataTransferObjects.ItemCategory
 {
-    public class Unit
+    public class ItemCategoryForCreationDto
     {
-        public Guid Id { get; set; }
-
-        [Required]
-        [StringLength(255)]
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
-
-        public ICollection<Item> Items { get; set; }
     }
 }

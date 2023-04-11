@@ -5,16 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.DataTransferObjects.Supplier
 {
-    public class Unit
+    public class SupplierDto
     {
         public Guid Id { get; set; }
-
-        [Required]
-        [StringLength(255)]
         public string Name { get; set; }
-
-        public ICollection<Item> Items { get; set; }
+        public string Address { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
     }
 }

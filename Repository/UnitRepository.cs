@@ -13,7 +13,7 @@ namespace Repository
     {
         public UnitRepository(RepositoryContext repositoryContext) : base(repositoryContext) { }
 
-        public IEnumerable<Unit> GetUnit(PaginationParameters paginationParameters)
+        public IEnumerable<Unit> GetAllUnit(PaginationParameters paginationParameters)
         {
             return FindAll()
                 .Skip((paginationParameters.PageNumber - 1) * paginationParameters.PageSize)

@@ -26,5 +26,7 @@ namespace Entities.Models
         [Required]
         [StringLength(13)]
         public string Phone { get; set; }
+
+        public ICollection<Item> Items { get; set; }
     }
 }

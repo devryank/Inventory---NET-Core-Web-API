@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.DataTransferObjects.Item
 {
-    public class Item
+    public class ItemForCreationDto
     {
-        [Key]
         public string Code { get; set; }
 
         [Required]
@@ -17,9 +16,8 @@ namespace Entities.Models
         public string Name { get; set; }
 
 
-        //[Required(ErrorMessage = "Image is required")]
-        //[FileExtensions(Extensions = "jpg,jpeg,png")]
-        public byte[] Photo { get; set; }
+        [FileExtensions(Extensions = "jpg,jpeg,png")]
+        public byte[]? Photo { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
@@ -31,13 +29,14 @@ namespace Entities.Models
         [Required]
         public int Stock { get; set; }
 
+        [Required]
         public Guid UnitId { get; set; }
-        public Unit Unit { get; set; }
 
+        [Required]
         public Guid ItemCategoryId { get; set; }
-        public ItemCategory ItemCategory { get; set; }
 
+        [Required]
         public Guid SupplierId { get; set; }
-        public Supplier Supplier { get; set; }
+
     }
 }

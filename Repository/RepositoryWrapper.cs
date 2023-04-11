@@ -15,6 +15,8 @@ namespace Repository
         private IUserRepository _user;
         private ISupplierRepository _supplier;
         private IUnitRepository _unit;
+        private IItemCategoryRepository _itemCategory;
+        private IItemRepository _item;
         public IUserRepository User
         {
             get
@@ -46,6 +48,28 @@ namespace Repository
                     _unit = new UnitRepository(_repoContext);
                 }
                 return _unit;
+            }
+        }
+        public IItemCategoryRepository ItemCategory
+        {
+            get
+            {
+                if (_itemCategory == null)
+                {
+                    _itemCategory = new ItemCategoryRepository(_repoContext);
+                }
+                return _itemCategory;
+            }
+        }
+        public IItemRepository Item
+        {
+            get
+            {
+                if (_item == null)
+                {
+                    _item = new ItemRepository(_repoContext);
+                }
+                return _item;
             }
         }
 

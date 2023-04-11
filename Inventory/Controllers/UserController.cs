@@ -28,7 +28,6 @@ namespace Inventory.Controllers
         {
             try
             {
-
                 var users = _repository.User.GetAllUsers();
                 return Ok(users);
             }

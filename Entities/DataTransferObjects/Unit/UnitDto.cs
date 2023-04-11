@@ -5,16 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities.Models
+namespace Entities.DataTransferObjects.Unit
 {
-    public class Unit
+    public class UnitDto
     {
         public Guid Id { get; set; }
-
-        [Required]
-        [StringLength(255)]
         public string Name { get; set; }
-
-        public ICollection<Item> Items { get; set; }
     }
 }

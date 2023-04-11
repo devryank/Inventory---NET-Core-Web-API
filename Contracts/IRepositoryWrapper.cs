@@ -11,6 +11,8 @@ namespace Contracts
         IUserRepository User { get; }
         ISupplierRepository Supplier { get; }
         IUnitRepository Unit { get; }
+        IItemCategoryRepository ItemCategory { get; }
+        IItemRepository Item { get; }
         void Save();
     }
 }
