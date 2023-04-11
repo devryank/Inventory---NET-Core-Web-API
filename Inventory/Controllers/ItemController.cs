@@ -81,7 +81,6 @@ namespace Inventory.Controllers
         [HttpPost]
         public IActionResult Create([FromForm] ItemForCreationDto itemDto, [FromForm(Name = "Photo")] IFormFile file)
         {
-            itemDto.Code = "SKU-" + new Random().Next(1000,2000);
             using (var ms = new MemoryStream())
             {
                 file.CopyTo(ms);
@@ -91,7 +90,7 @@ namespace Inventory.Controllers
             {
                 if (itemDto == null)
                 {
-                    return BadRequest("Unit is null");
+                    return BadRequest("Item is null");
                 }
                 if (!ModelState.IsValid)
                 {
@@ -102,6 +101,64 @@ namespace Inventory.Controllers
                 _repository.Save();
 
                 return Ok(itemEntity);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        [HttpPut("{code}")]
+        public IActionResult Update(string code, [FromForm] ItemForUpdateDto itemDto, [FromForm(Name = "Photo")] IFormFile file)
+        {
+            using (var ms = new MemoryStream())
+            {
+                file.CopyTo(ms);
+                itemDto.Photo = ms.ToArray();
+            }
+            try
+            {
+                var item = _repository.Item.GetItemByCode(code);
+                if(item == null)
+                {
+                    return NotFound();
+                }
+                if (itemDto == null)
+                {
+                    return BadRequest("Item is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+                var itemEntity = itemDto.Adapt<Item>();
+                itemEntity.Code = code;
+                _repository.Item.UpdateItem(itemEntity);
+                _repository.Save();
+
+                return Ok(itemEntity);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        [HttpDelete("{code}")]
+        public IActionResult Delete(string code)
+        {
+            try
+            {
+                var item = _repository.Item.GetItemByCode(code);
+                if (item == null)
+                {
+                    return NotFound();
+                }
+
+                _repository.Item.DeleteItem(item);
+                _repository.Save();
+
+                return StatusCode(200);
             }
             catch (Exception ex)
             {
