@@ -28,5 +28,7 @@ namespace Entities.Models
         public string Phone { get; set; }
 
         public ICollection<Item> Items { get; set; }
+        public ICollection<Inbound> Inbounds { get; set; }
+        public ICollection<Outbound> Outbounds { get; set; }
     }
 }

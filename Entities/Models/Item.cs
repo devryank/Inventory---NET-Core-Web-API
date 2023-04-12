@@ -39,5 +39,7 @@ namespace Entities.Models
 
         public Guid SupplierId { get; set; }
         public Supplier Supplier { get; set; }
+        public ICollection<Inbound> Inbounds { get; set; }
+        public ICollection<Outbound> Outbounds { get; set; }
     }
 }
