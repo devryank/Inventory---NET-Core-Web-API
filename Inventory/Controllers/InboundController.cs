@@ -86,11 +86,13 @@ namespace Inventory.Controllers
                 inboundDto.Date = DateTime.Now;
                 inboundDto.Total = inboundDto.Qty * inboundDto.Price;
 
+                var itemEntity = _repository.Item.GetItemByCode(inboundDto.Code);
+                itemEntity.Stock += inboundDto.Qty;
                 var inboundEntity = inboundDto.Adapt<Inbound>();
                 _repository.Inbound.CreateInbound(inboundEntity);
+                _repository.Item.UpdateItem(itemEntity);
                 _repository.Save();
-
-                return Ok(inboundEntity);
+                return Ok(200);
             } 
             catch (Exception ex)
             {
@@ -114,12 +116,18 @@ namespace Inventory.Controllers
                 inboundDto.Date = DateTime.Now;
                 inboundDto.Total = inboundDto.Qty * inboundDto.Price;
 
+                var itemEntity = _repository.Item.GetItemByCode(inboundDto.Code);
+                var inboundSource = _repository.Inbound.GetInboundById(id);
                 var inboundEntity = inboundDto.Adapt<Inbound>();
+
                 inboundEntity.Id = id;
+                itemEntity.Stock += inboundEntity.Qty - inboundSource.Qty;
+
                 _repository.Inbound.UpdateInbound(inboundEntity);
+                _repository.Item.UpdateItem(itemEntity);
                 _repository.Save();
 
-                return Ok(inboundEntity);
+                return Ok(200);
             }
             catch (Exception ex)
             {
@@ -131,11 +139,15 @@ namespace Inventory.Controllers
         public IActionResult Delete(Guid id)
         {
             var inboundEntity = _repository.Inbound.GetInboundById(id);
-            if(inboundEntity == null)
+            var itemEntity = _repository.Item.GetItemByCode(inboundEntity.Code);
+            itemEntity.Stock -= inboundEntity.Qty;
+
+            if (inboundEntity == null)
             {
                 return NotFound();
             }
 
+            _repository.Item.UpdateItem(itemEntity);
             _repository.Inbound.DeleteInbound(inboundEntity);
             _repository.Save();
 
