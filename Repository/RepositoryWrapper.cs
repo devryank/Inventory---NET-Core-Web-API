@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Entities;
+using Entities.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace Repository
         private IUnitRepository _unit;
         private IItemCategoryRepository _itemCategory;
         private IItemRepository _item;
+        private IInboundRepository _inbound;
+        private IOutboundRepository _outbound;
         public IUserRepository User
         {
             get
@@ -70,6 +73,30 @@ namespace Repository
                     _item = new ItemRepository(_repoContext);
                 }
                 return _item;
+            }
+        }
+
+        public IInboundRepository Inbound
+        {
+            get
+            {
+                if (_inbound == null)
+                {
+                    _inbound = new InboundRepository(_repoContext);
+                }
+                return _inbound;
+            }
+        }
+
+        public IOutboundRepository Outbound
+        {
+            get
+            {
+                if (_outbound == null)
+                {
+                    _outbound = new OutboundRepository(_repoContext);
+                }
+                return _outbound;
             }
         }
 

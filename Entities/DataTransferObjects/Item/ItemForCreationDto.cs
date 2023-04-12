@@ -10,7 +10,7 @@ namespace Entities.DataTransferObjects.Item
     public class ItemForCreationDto
     {
         public string Code { get; set; }
-
+            
         [Required]
         [StringLength(255)]
         public string Name { get; set; }

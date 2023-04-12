@@ -36,5 +36,7 @@ namespace Entities
         public DbSet<ItemCategory>? ItemCategory { get; set; }
         public DbSet<Unit>? Unit { get; set; }
         public DbSet<Supplier>? Suppliers { get; set; }
+        public DbSet<Inbound>? Inbounds { get; set; }
+        public DbSet<Outbound>? Outbounds { get; set; }
     }
 }

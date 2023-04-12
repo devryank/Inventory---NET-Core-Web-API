@@ -13,6 +13,8 @@ namespace Contracts
         IUnitRepository Unit { get; }
         IItemCategoryRepository ItemCategory { get; }
         IItemRepository Item { get; }
+        IInboundRepository Inbound { get; }
+        IOutboundRepository Outbound { get; }
         void Save();
     }
 }
